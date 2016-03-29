@@ -4,13 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.ArrayList;
 import android.util.Log;
 
 public class AnagramDictionary {
@@ -41,8 +39,7 @@ public class AnagramDictionary {
             }
             String sorted;
             sorted = stringSorter(word);
-            if(lettersToWords.containsKey(sorted))
-            {
+            if(lettersToWords.containsKey(sorted)) {
                 ArrayList<String> appList = lettersToWords.get(sorted);
                 appList.add(word);
             } else {
@@ -73,7 +70,7 @@ public class AnagramDictionary {
         for(char i = 'a'; i <= 'z'; ++i) {
             String s = new StringBuilder().append(i).append(word).toString();
             s = stringSorter(s);
-            if(lettersToWords.get(s).contains(word)) {
+            if(lettersToWords.containsKey(s)) {
                 result.addAll((lettersToWords.get(s)));
             }
         }
@@ -83,11 +80,11 @@ public class AnagramDictionary {
 
     public String pickGoodStarterWord() {
         boolean found = false;
-        ArrayList<String> result;
+        ArrayList<String> result = new ArrayList<String>();
         String s;
         do {
-
-            s = wordList.get(random.nextInt(wordList.size() - 1));
+            int randomNum = random.nextInt((wordList.size() - 1));
+            s = wordList.get(randomNum);
             result = getAnagramsWithOneMoreLetter(s);
 
             if( result.size() >= MIN_NUM_ANAGRAMS && s.length() == wordLength && s.length() <= MAX_WORD_LENGTH){
